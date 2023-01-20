@@ -92,7 +92,7 @@ paths:
     put:
       tags:
         - POST
-      summary: create new post if the provided id is not present or overwrite the whole post entity with the provided payload
+      summary: overwrite the whole post entity with the provided payload
       operationId: update
       parameters:
         - in: path
