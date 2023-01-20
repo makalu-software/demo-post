@@ -1,0 +1,220 @@
+openapi: 3.0.3
+info:
+  title: demo post api
+  description: |-
+    post api for demo
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+
+paths:
+  /posts:
+    post:
+      tags:
+        - POST
+      summary: create new post
+      description: create new post
+      operationId: posts
+      requestBody:
+        description: Payload for create new post
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AddNewPost'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddPostResponse"
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Post not found
+        '405':
+          description: Validation exception
+    get:
+      tags:
+        - POST
+      summary: get all posts
+      operationId: index
+      parameters:
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          required: false
+        - in: query
+          name: max
+          schema:
+            type: integer
+          required: false
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Posts'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: User not found
+        '405':
+          description: Validation exception
+  /posts/{id}:
+    get:
+      tags:
+        - POST
+      summary: get post by id
+      operationId: show
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: User not found
+        '405':
+          description: Validation exception
+    put:
+      tags:
+        - POST
+      summary: create new post if the provided id is not present or overwrite the whole post entity with the provided payload
+      operationId: update
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        description: Payload for create new post
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AddNewPost'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddPostResponse"
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Post not found
+        '405':
+          description: Validation exception
+    delete:
+      tags:
+        - POST
+      summary: delete post by id
+      operationId: delete
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Post not found
+        '405':
+          description: Validation exception
+    patch:
+      tags:
+        - POST
+      summary: patch the post
+      operationId: patch
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddNewPost"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddPostResponse"
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Post not found
+        '405':
+          description: Validation exception
+
+components:
+  schemas:
+    AddNewPost:
+      required:
+        - title
+        - author
+      type : object
+      properties:
+        title:
+          type: string
+          example: "New Post"
+        author:
+          type: string
+          example: "dhiraj"
+    AddPostResponse:
+      type: object
+      properties:
+        post:
+          $ref: "#/components/schemas/Post"
+        status:
+          type: integer
+          example: "201/204"
+
+    Post:
+      required:
+        - id
+        - title
+        - author
+      type: object
+      properties:
+        id:
+          type: integer
+          example: "1"
+        title:
+          type: string
+          example: "New Post"
+        author:
+          type: string
+          example: "dhiraj"
+    Posts:
+      type: object
+      properties:
+        posts:
+          type: array
+          items:
+            $ref: "#/components/schemas/Post"
+        postCount:
+          type: integer

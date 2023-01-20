@@ -1,0 +1,31 @@
+.inputForm label{
+    width: 150px;
+    justify-content: start;
+}
+.inputForm input[type="text"]{
+    border-radius: 0;
+    height: 30px;
+}
+.inputForm input[type="password"]{
+    border-radius: 0;
+    height: 30px;
+}
+.inputForm .checkbox-group{
+    align-items:flex-start;
+}
+.inputForm .checkbox-group2{
+    align-items:flex-start;
+}
+.checkbox-group2 .checkbox label{
+    width: initial;
+}
+.checkbox-group2 .checkbox input[type="text"]{
+    width: 70px;
+}
+.inputForm .blockUser4{
+    width: unset;
+}
+.inputForm button{
+    background: none;
+    border: 1px solid #000;
+}
